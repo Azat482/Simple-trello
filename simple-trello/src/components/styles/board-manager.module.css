@@ -1,0 +1,19 @@
+.board_mng{
+
+}
+
+.board_mng__container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.board_mng__item{
+    width: 300px;
+    height: 100px;
+    border: 1px solid black;
+
+}
+
+.board_mng__editor{
+
+}

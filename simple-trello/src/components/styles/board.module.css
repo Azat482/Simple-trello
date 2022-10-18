@@ -1,0 +1,18 @@
+.board_mng{
+    width: 100%;
+    min-height: 100%;
+}
+
+.board_mng__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.board__list_container{
+    display: grid;   
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.board__list_container > div{
+    border: 1px solid green;
+}
