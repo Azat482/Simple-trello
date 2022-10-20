@@ -37,7 +37,7 @@ function Board(props){
         if(lists_obj){
             lists_tb_new = {...lists_obj};
             console.log(lists_tb_new);
-            const id_arr = [];
+            let id_arr = [];
             let new_id;
             for (let list_id in lists_tb_new){
                 id_arr.push(list_id);
