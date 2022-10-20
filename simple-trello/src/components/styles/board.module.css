@@ -1,18 +1,12 @@
-.board_mng{
-    width: 100%;
-    min-height: 100%;
-}
-
-.board_mng__container{
+.board__lists_container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
-.board__list_container{
-    display: grid;   
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.board__list_container > div{
-    border: 1px solid green;
+.board__lists_item{
+    width: 300px;
+    min-height: 400px;
+    border: 1px solid black;
 }
