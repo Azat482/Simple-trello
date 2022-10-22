@@ -1,0 +1,17 @@
+.list_editor__container{
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    top: calc(50% - 250px);
+    left: calc(50% - 250px);
+    background-color: #d4d4d4;
+}
+
+.task_creator__container{
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    top: calc(50% - 250px);
+    left: calc(50% - 250px);
+    background-color: #d4d4d4;
+}

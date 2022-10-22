@@ -7,7 +7,9 @@ function BoardMng(props){
     const [boards_list, set_boards_list] = useState(JSON.parse(localStorage.getItem('boards_tb'))); //null - if empty
     let boards = null;
 
+   
     const add_board_db = (name, description)=>{
+        console.log('boards lists: ', boards_list);
         const date = new Date().toDateString();
         let boards_tb_new = null;
         let new_board_data = {
@@ -16,7 +18,8 @@ function BoardMng(props){
             description: description,
             datetime: date,                 
         };
-        if(boards_list){
+        if(JSON.stringify(boards_list) != '{}' && boards_list){
+            console.log('boards lists is true: ');
             boards_tb_new = {...boards_list}; //new obj to update state and render again
             let id_arr = [];
             let new_id = null;

@@ -1,0 +1,13 @@
+.task__container{
+    background-color: rgb(200, 255, 246);
+    border: 1px solid rgb(78, 78, 78);
+}
+
+.task_editor__container{
+    background-color: rgb(235, 235, 235);
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 250px);
+}
