@@ -57,13 +57,13 @@ function BoardMng(props){
     const board_creatorbox = 
         <div className={css.board_mng__editor + ' ' + css.board_mng__item}>
             <div className={css.board_mng__editor_header}>
-                <h2>Create new board</h2>
+                <h3 className={css.board_mng__item_name}>Добавить доску</h3>
             </div>
             <form onSubmit={new_board_handler}>
-                <input name="board_name" placeholder="Enter name of the board..." type="text" />
-                <textarea name="board_desc" cols="30" rows="10" placeholder="Enter the description..." ></textarea>
+                <input name="board_name" placeholder="Название доски..." type="text" />
+                <textarea name="board_desc" placeholder="Описание доски..." ></textarea>
                 <button type="submit">
-                    <span>Add board</span>
+                    <span>Добавить</span>
                 </button>
             </form>
         </div>
@@ -73,26 +73,26 @@ function BoardMng(props){
         boards_arr.push(boards_list[n_board_data]);
     }
 
-
     boards = boards_arr.map((item)=>{
         let board_ref = `/board?board-id=${item.id}&board-name=${item.name}`;
         return (
         <div className={css.board_mng__item} key={item.id}>
             <div className={css.board_mng_item_info}>
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <p>{item.datetime}</p>
+                <h3 className={css.board_mng__item_name}>{item.name}</h3>
+                <p className={css.board_desc}>{item.description}</p>
+                <p className={css.board_datetime}>{item.datetime}</p>
             </div>
+            <span className={css.board_sep_line}></span>
             <Link className={css.board_mng_item_button_container} to={board_ref}>
-                <span>Go To</span>
+                <span>Перейти</span>
             </Link>            
         </div>
         )
     });
 
     return(
-        <div className={css.board_mng}>
-            <div className={css.board_mng__container}>
+        <div className={css.board_mng__container}>
+            <div className={css.board_mng__content}>
                 {boards}
                 {board_creatorbox}
             </div>

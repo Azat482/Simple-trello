@@ -1,13 +1,240 @@
 .task__container{
-    background-color: rgb(200, 255, 246);
-    border: 1px solid rgb(78, 78, 78);
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgb(112, 112, 112);    
+    padding: 15px 10px;
 }
 
-.task_editor__container{
-    background-color: rgb(235, 235, 235);
-    width: 500px;
-    height: 500px;
+.task_info__container{
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+    color: #0d3b4f;
+}
+
+.task_info_name{
+    font-family: 'Lato';
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.task_info_desc{
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 17.5px;
+    line-height: 17.5px;
+}
+
+.task_info_deadline{
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 12.5px;
+    margin-top: 5px;
+    text-align: end;
+}
+
+.task__options_btns_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.task__options_btns_container  button{
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #0d3b4f;
+    color: #dee3e6;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+.task_info_full__container{
+    background-color: #0d3b4fad;
+    width: 100vw;
+    height: 100vh;
     position: fixed;
-    top: calc(50% - 250px);
-    left: calc(50% - 250px);
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.task_info_full__content{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 1000px;
+    min-height: 200px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px 15px;
+}
+
+.task_info_full__cancel_btn{
+    border: none;
+    background-color: inherit;
+    align-self: flex-end;
+    margin-right: 5px;
+}
+
+.task_info__block{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 5px;
+}
+
+.task_info__block{
+    font-family: 'Lato';
+    color: #0d3b4f;
+}
+
+.task_info__block .task_name{
+    font-size: 45px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.task_info__block .task_desc{
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.task_info__block .task_text{
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.task_info__block .task_deadline{
+    font-size: 20px;
+    font-weight: 300;
+    text-align: end;
+}
+
+.task_info__sep_line{
+    height: 1px;
+    width: 100%;
+    background-color: #0d3b4f;
+}
+
+.task_full_info__edit_btn{
+    margin-top: 25px;
+    padding: 15px 10px;
+    color: #dee3e6;
+    font-family: 'Lato';
+    font-weight: 900;
+    font-size: 25px;
+    border: none;
+    background-color:  #0d3b4f;
+    border-radius: 5px;
+}
+
+
+.task_editor__container{
+    background-color: #0d3b4fad;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.task_editor__content{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px 15px;
+}
+
+.task_editor__cancel_btn{
+    margin-right: 5px;
+    background-color: inherit;
+    border: none;
+    align-self: flex-end;
+}
+
+.task_editor__content > form{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.task_editor__content > form > label{
+    font-size: 17.5px;
+    font-family: 'Lato';
+    font-weight: 300;
+    color: #0d3b4f;
+    margin-left: 5px;
+}
+
+.task_editor__content > form > input,
+.task_editor__content > form > textarea{
+    padding: 10px 15px;
+    border-radius: 10px;
+    outline: none;
+    color: #0d3b4f;
+    font-size: 20px;
+    font-family: 'Lato';
+    font-weight: 400;
+    border: 1px solid rgb(104, 104, 104); 
+}
+
+.task_editor__content > form > input{
+    height: 45px;
+}
+
+.task_editor__content > form > textarea{
+    resize: vertical;
+    min-height: 150px;
+}
+
+.task_editor__option_btns > button{
+    padding: 20px 15px;
+    color: #dee3e6;
+    font-family: 'Lato';
+    font-weight: 900;
+    font-size: 25px;
+    border: none;
+    border-radius: 10px;
+}
+
+.task_editor__option_btns{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.task_editor__save_btn{
+    background-color: #0d3b4f;
+}
+
+.task_editor__delete_btn{
+    background-color: #ff3d3d;
 }

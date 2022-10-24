@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import css from './styles/board.module.css'
 import TaskList from "./list.jsx";
+import cancel_btn from './images/cancel.svg'
 
 function Board(props){
     let [search_params, set_search_params] = useSearchParams();
     const boards_tb = JSON.parse(localStorage.getItem('boards_tb'));
-    let lists_obj = JSON.parse(localStorage.getItem('lists_tb'));
+    const [lists_tb_state, set_lists_state] = useState(JSON.parse(localStorage.getItem('lists_tb')));
+    const [tasks_tb_state, set_tasks_state] = useState(JSON.parse(localStorage.getItem('tasks_tb')));
 
     const board_id = search_params.get('board-id');
     const [board_data, set_board] = useState(boards_tb[board_id]);
-    const [task_lists, set_task_lists] = useState(list_filter(board_id, lists_obj));
+    const task_lists = list_filter(board_id, lists_tb_state);
     const [board_editor_state, set_board_editor_state] = useState(false);
     const navigate_root = useNavigate();
 
@@ -27,6 +29,7 @@ function Board(props){
 
     //let task_lists = null;
     const add_list_db = (list_name, list_description)=>{
+        const lists_obj = JSON.parse(localStorage.getItem('lists_tb'));
         const date = new Date().toDateString();
         let lists_tb_new = null;
         let new_list_data = {
@@ -36,6 +39,7 @@ function Board(props){
             description: list_description,
             datetime: date
         }
+
         if(JSON.stringify(lists_obj) != '{}' && lists_obj){
             lists_tb_new = {...lists_obj};
             console.log(lists_tb_new);
@@ -54,7 +58,7 @@ function Board(props){
             lists_tb_new = {1: new_list_data};
             localStorage.setItem('lists_tb', JSON.stringify(lists_tb_new));    
         }
-        set_task_lists((list_filter(board_id, lists_tb_new)));
+        set_lists_state(lists_tb_new);
     }
 
     const update_board_db = (old_board_tb, new_board_obj) => {
@@ -95,25 +99,34 @@ function Board(props){
         set_board_editor_state(false);
     }
 
+    window.addEventListener('storage', (e)=>{
+        if(e.key != 'lists_tb') return;
+        set_lists_state(JSON.parse(e.newValue));
+    });
+
     const board_editor = () => {
         if(!board_editor_state) return null;
         return (
-            <div className={css.board__editor_container}>
-                <button className={css.board__editor_cancel_btn} onClick={()=>{
-                    set_board_editor_state(false);
-                }}>
-                    <span>cancel</span>
-                </button>
-                <form onSubmit={board_editor_handler}>
-                    <input name="new_board_name" placeholder="Edit name of the board..." type="text" defaultValue={board_data.name}/>
-                    <textarea name="new_board_desc" cols="30" rows="10" placeholder="Edit the description..." defaultValue={board_data.description}></textarea>
-                    <button type="submit">
-                        <span>Save</span>
+            <div className={css.board_editor__container}>
+                <div className={css.board_editor__content}>
+                    <button className={css.board__editor_cancel_btn} onClick={() => {
+                        set_board_editor_state(false);
+                    }}>
+                        <img src={cancel_btn} alt="cancel" width='50px' height='50px'/>
                     </button>
-                </form>
-                <button className={css.board__editor_delete_btn} onClick={delete_board_handler}>
-                    <span>Delete</span>
-                </button>
+                    <form onSubmit={board_editor_handler}>
+                        <label htmlFor="new_board_name">Название доски:</label>
+                        <input name="new_board_name" placeholder="Edit name of the board..." type="text" defaultValue={board_data.name} />
+                        <label htmlFor="new_board_desc">Описание доски:</label>
+                        <textarea name="new_board_desc" cols="30" rows="10" placeholder="Edit the description..." defaultValue={board_data.description}></textarea>
+                        <button className={css.board__editor_save_btn} type="submit">
+                            <span>Сохранить</span>
+                        </button>
+                        <button className={css.board__editor_delete_btn} onClick={delete_board_handler}>
+                            <span>Удалить</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         );
     }
@@ -122,47 +135,50 @@ function Board(props){
     for(let list_i in task_lists) lists_arr.push(task_lists[list_i]);
     const lists = lists_arr.map((list)=>{
         return (
-            <div className={css.board__lists_item} key={list.id}>
-                <TaskList list_data={list} on_lists_tb_change={set_task_lists}/>
-            </div>
+            <TaskList key={list.id} board_tasks_tb_state={tasks_tb_state} lists_arr={lists_arr} board_data={board_data} list_data={list} on_lists_tb_change={set_lists_state} on_change_board_tasks_tb_state={set_tasks_state}/>
         );
         
     });
 
     const list_creator = 
         <div className={css.board__lists_creatorbox + ' ' + css.board__lists_item}>
-            <p>Create list</p>
+            <h2>Добавить список</h2>
             <form onSubmit={new_list_handler}>
-                <input name="list_name" type="text" placeholder="new list name"/>
-                <textarea name="list_desc" id="" cols="30" rows="10"></textarea>
+                <input name="list_name" type="text" placeholder="Название списка..."/>
+                <textarea name="list_desc" placeholder="Описание списка..."></textarea>
                 <button type="submit">
-                    <span>Create new list</span>
+                    <span>Добавить</span>
                 </button>
             </form>
         </div>
 
     return(
         <div className={css.board__container}>
-            <div className={css.board_header}>
-                <div className={css.board__info_block}>
-                    <h1>{board_data.name}</h1>
-                    <p>{board_data.description}</p>
-                    <p>{board_data.datetime}</p>
+            <div className={css.board__content}>
+                <div className={css.board_header__container}>
+                    <div className={css.board_header}>
+                        <div className={css.board__info_block}>
+                            <h1 className={css.board_data__name}>{board_data.name}</h1>
+                            <p className={css.board_data__desc}>{board_data.description}</p>
+                            <p className={css.board_data__datetime}>{board_data.datetime}</p>
+                        </div>
+                        <div className={css.board__tools_block}>
+                            <button className={css.board_editor_btn} onClick={(e) => {
+                                e.preventDefault();
+                                set_board_editor_state(true);
+                            }}>
+                                <span>Редактировать</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div className={css.board__tools_block}>
-                    <button className={css.board_editor_btn} onClick={(e)=>{
-                        e.preventDefault();
-                        set_board_editor_state(true);
-                    }}>
-                        <span>Edit board</span>
-                    </button>
+                <div className={css.board__lists_container}>
+                    {lists}
+                    {list_creator}
                 </div>
+                {board_editor()}
+
             </div>
-            <div className={css.board__lists_container}>
-                {lists}
-                {list_creator}
-            </div>
-            {board_editor()}
         </div>
     );
 }
